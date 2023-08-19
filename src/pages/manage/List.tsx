@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import QuestionCard from '../../components/QuestionCard'
-import styles from '../manage/List.module.scss'
+import styles from './List.module.scss'
 
 const rawQuestionList = [
   {
