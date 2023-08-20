@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Button } from 'antd'
+
 const Home: FC = () => {
   const nav = useNavigate()
 
@@ -12,7 +14,7 @@ const Home: FC = () => {
     <div>
       <p>Home</p>
       <div>
-        <button onClick={clickHandler}>登录</button>
+        <Button onClick={clickHandler}>登录</Button>
       </div>
     </div>
   )
