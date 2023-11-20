@@ -12,7 +12,7 @@ const rawQuestionList = [
     _id: 'q1',
     title: '问卷1',
     isPublished: false,
-    isStar: false,
+    isStar: true,
     answerCount: 5,
     createdAt: '3月10日 13:23',
   },
