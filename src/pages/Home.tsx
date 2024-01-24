@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 import { Button, Typography } from 'antd'
 import { MANAGE_INDEX_PATHNAME } from '../router'
@@ -9,6 +10,15 @@ const { Title, Paragraph } = Typography
 
 const Home: FC = () => {
   const nav = useNavigate()
+
+  useEffect(() => {
+    axios
+      .get('/api/test')
+      .then(res => res.data)
+      .then(data => {
+        console.log(data)
+      })
+  }, [])
 
   // function clickHandler() {
   //   nav('/login')
