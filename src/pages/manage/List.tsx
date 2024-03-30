@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
-import { useRequest, useTitle } from 'ahooks'
+import { useTitle } from 'ahooks'
 import { Spin, Typography } from 'antd'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
-import { getQuestionListService } from '../../services/question'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 
 const { Title } = Typography
 
 const List: FC = () => {
   useTitle('小星问卷 - 我的问卷')
 
-  const { data = {}, loading } = useRequest(getQuestionListService)
+  const { data = {}, loading } = useLoadQuestionListData()
   const { list = [], total = 0 } = data
 
   return (
