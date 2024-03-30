@@ -4,23 +4,32 @@ import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from '@ant-d
 import { Button, Space, Divider, message } from 'antd'
 import styles from './ManageLayout.module.scss'
 import { createQuestionService } from '../services/question'
+import { useRequest } from 'ahooks'
 
 const ManageLayout: FC = () => {
   const nav = useNavigate()
   const { pathname } = useLocation()
 
-  const [loading, setLoading] = useState(false)
-  async function handleCreateClick() {
-    setLoading(true)
-    const data = await createQuestionService()
-    const id = data || {}
-    if (id) {
-      nav(`/question/edit/${id}`)
-      message.success('创建成功')
-    }
+  // const [loading, setLoading] = useState(false)
+  // async function handleCreateClick() {
+  //   setLoading(true)
+  //   const data = await createQuestionService()
+  //   const id = data || {}
+  //   if (id) {
+  //     nav(`/question/edit/${id}`)
+  //     message.success('创建成功')
+  //   }
 
-    setLoading(false)
-  }
+  //   setLoading(false)
+  // }
+
+  const { loading, run: handleCreateClick } = useRequest(createQuestionService, {
+    manual: true,
+    onSuccess(result) {
+      nav(`/question/edit/${result.id}`)
+      message.success('创建成功')
+    },
+  })
 
   return (
     <div className={styles.container}>
