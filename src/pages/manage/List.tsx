@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useTitle, useDebounceFn } from 'ahooks'
 import { Spin, Typography } from 'antd'
 import QuestionCard from '../../components/QuestionCard'
@@ -11,6 +11,7 @@ const { Title } = Typography
 const List: FC = () => {
   useTitle('小星问卷 - 我的问卷')
 
+  const containerRef = useRef<HTMLDivElement>(null)
   const [page, setPage] = useState(1)
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
@@ -19,7 +20,15 @@ const List: FC = () => {
   const [searchParams] = useSearchParams()
   const { run: tryLoadMore } = useDebounceFn(
     () => {
-      console.log('tryLoadMore')
+      const ele = containerRef.current
+      if (ele == null) return
+
+      const domRect = ele.getBoundingClientRect()
+      if (domRect == null) return
+      const { bottom } = domRect
+      if (bottom <= document.body.clientHeight) {
+        console.log('执行加载')
+      }
     },
     {
       wait: 1000,
@@ -51,7 +60,7 @@ const List: FC = () => {
           <ListSearch />
         </div>
       </div>
-      <div className={styles.content}>
+      <div className={styles.content} style={{ height: '2000px' }}>
         {/* {loading && (
           <div style={{ textAlign: 'center' }}>
             <Spin />
@@ -65,7 +74,9 @@ const List: FC = () => {
             return <QuestionCard key={_id} {...q} />
           })} */}
       </div>
-      <div className={styles.footer}>上划加载更多...</div>
+      <div className={styles.footer}>
+        <div ref={containerRef}>loadMore... 上滑加载更多</div>
+      </div>
     </>
   )
 }
