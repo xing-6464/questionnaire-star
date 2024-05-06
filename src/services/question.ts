@@ -33,3 +33,14 @@ export async function getQuestionListService(
 
   return data
 }
+
+// 更新单个问卷信息
+export async function updateQuestionService(
+  id: string,
+  opt: Record<string, any>
+): Promise<ResDataType> {
+  const url = `/api/question/${id}`
+  const data = (await axios.patch(url, opt)) as ResDataType
+
+  return data
+}
