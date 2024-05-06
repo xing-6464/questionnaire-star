@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useTitle, useDebounceFn, useRequest } from 'ahooks'
-import { Spin, Typography } from 'antd'
+import { Empty, Spin, Typography } from 'antd'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
@@ -15,18 +15,27 @@ const List: FC = () => {
 
   const [searchParams] = useSearchParams()
   const containerRef = useRef<HTMLDivElement>(null)
+  const [started, setStarted] = useState(false)
   const [page, setPage] = useState(1)
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
 
   const haveMoreData = total > list.length
+  const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
+
+  useEffect(() => {
+    setStarted(false)
+    setPage(1)
+    setList([])
+    setTotal(0)
+  }, [keyword])
 
   const { run: load, loading } = useRequest(
     async () => {
       const data = await getQuestionListService({
         page,
         pageSize: LIST_PAGE_SIZE,
-        keyword: searchParams.get(LIST_SEARCH_PARAM_KEY) || '',
+        keyword,
       })
 
       return data
@@ -52,6 +61,7 @@ const List: FC = () => {
       const { bottom } = domRect
       if (bottom <= document.body.clientHeight) {
         load()
+        setStarted(true)
       }
     },
     {
@@ -74,6 +84,13 @@ const List: FC = () => {
     }
   }, [searchParams, haveMoreData])
 
+  const LoadMoreContentElem = useMemo(() => {
+    if (!started || loading) return <Spin />
+    if (total === 0) return <Empty description="暂无数据" />
+    if (!haveMoreData) return <span>没有更多数据</span>
+    return <span>开始加载下一页</span>
+  }, [started, loading, total, haveMoreData])
+
   return (
     <>
       <div className={styles.header}>
@@ -85,13 +102,7 @@ const List: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {loading && (
-          <div style={{ textAlign: 'center' }}>
-            <Spin />
-          </div>
-        )}
-        {!loading &&
-          list.length > 0 &&
+        {list.length > 0 &&
           list.map((q: any) => {
             const { _id } = q
 
@@ -99,7 +110,7 @@ const List: FC = () => {
           })}
       </div>
       <div className={styles.footer}>
-        <div ref={containerRef}>loadMore... 上滑加载更多</div>
+        <div ref={containerRef}>{LoadMoreContentElem}</div>
       </div>
     </>
   )
