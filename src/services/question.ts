@@ -44,3 +44,10 @@ export async function updateQuestionService(
 
   return data
 }
+
+// 复杂问卷
+export async function duplicateQuestionService(id: string): Promise<ResDataType> {
+  const url = `/api/question/duplicate/${id}/`
+  const data = (await axios.post(url)) as ResDataType
+  return data
+}
