@@ -6,7 +6,7 @@ import styles from './common.module.scss'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
-import { updateQuestionService } from '../../services/question'
+import { deleteQuestionService, updateQuestionService } from '../../services/question'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -20,6 +20,7 @@ const Trash: FC = () => {
   // 记录选中的id
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
+  // 恢复
   const { run: recover, loading: recoverLoading } = useRequest(
     async () => {
       for await (const id of selectedIds) {
@@ -32,6 +33,20 @@ const Trash: FC = () => {
         message.success('恢复成功')
         // 手动刷新
         refresh()
+        setSelectedIds([])
+      },
+    }
+  )
+
+  // 删除
+  const { run: deleteQuestion, loading: deleteLoading } = useRequest(
+    async () => await deleteQuestionService(selectedIds),
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('删除成功')
+        refresh()
+        setSelectedIds([])
       },
     }
   )
@@ -41,7 +56,9 @@ const Trash: FC = () => {
       title: '确定删除该问卷？',
       icon: <ExclamationCircleOutlined />,
       content: '删除以后不可找回',
-      onOk: () => alert(`删除 ${JSON.stringify(selectedIds)}`),
+      okText: '确定',
+      cancelText: '取消',
+      onOk: () => deleteQuestion(),
     })
   }
 
@@ -69,7 +86,7 @@ const Trash: FC = () => {
           >
             恢复
           </Button>
-          <Button danger disabled={selectedIds.length === 0} onClick={del}>
+          <Button danger disabled={selectedIds.length === 0} onClick={del} loading={deleteLoading}>
             彻底删除
           </Button>
         </Space>
