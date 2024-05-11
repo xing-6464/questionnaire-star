@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
-import { useTitle } from 'ahooks'
-import { Typography, Empty, Table, Tag, Space, Button, Modal, Spin } from 'antd'
+import { useRequest, useTitle } from 'ahooks'
+import { Typography, Empty, Table, Tag, Space, Button, Modal, Spin, message } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import styles from './common.module.scss'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
+import { updateQuestionService } from '../../services/question'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -13,11 +14,36 @@ const { confirm } = Modal
 const Trash: FC = () => {
   useTitle('小星问卷 - 回收站')
 
-  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
   const { list = [], total = 0 } = data
 
   // 记录选中的id
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+
+  const { run: recover, loading: recoverLoading } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false })
+      }
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('恢复成功')
+        // 手动刷新
+        refresh()
+      },
+    }
+  )
+
+  function del() {
+    confirm({
+      title: '确定删除该问卷？',
+      icon: <ExclamationCircleOutlined />,
+      content: '删除以后不可找回',
+      onOk: () => alert(`删除 ${JSON.stringify(selectedIds)}`),
+    })
+  }
 
   const tableColumns = [
     { title: '标题', dataIndex: 'title' },
@@ -31,12 +57,16 @@ const Trash: FC = () => {
     { title: '答案', dataIndex: 'answerCount' },
     { title: '创建时间', dataIndex: 'createdAt' },
   ]
-
   const TableElem = (
     <>
       <div style={{ marginBottom: '16px' }}>
         <Space>
-          <Button type="primary" disabled={selectedIds.length === 0}>
+          <Button
+            type="primary"
+            disabled={selectedIds.length === 0}
+            onClick={recover}
+            loading={recoverLoading}
+          >
             恢复
           </Button>
           <Button danger disabled={selectedIds.length === 0} onClick={del}>
@@ -58,15 +88,6 @@ const Trash: FC = () => {
       />
     </>
   )
-
-  function del() {
-    confirm({
-      title: '确定删除该问卷？',
-      icon: <ExclamationCircleOutlined />,
-      content: '删除以后不可找回',
-      onOk: () => alert(`删除 ${JSON.stringify(selectedIds)}`),
-    })
-  }
 
   return (
     <>
