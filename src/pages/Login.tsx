@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '../router'
 import { loginService } from '../services/user'
 import { useRequest } from 'ahooks'
+import { setToken } from '../utils/user-token'
 
 const { Title } = Typography
 const USERNAME = 'USERNAME'
@@ -42,6 +43,9 @@ const Login: FC = () => {
     {
       manual: true,
       onSuccess(res) {
+        const { token = '' } = res
+        // 存储 token
+        setToken(token)
         message.success('登录成功')
 
         // 登录成功导航到我的问卷
