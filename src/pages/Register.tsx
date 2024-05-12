@@ -35,7 +35,7 @@ const Register: FC = () => {
       <div>
         <Space>
           <Title level={2}>
-            <UserAddOutlined />
+            <UserAddOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           </Title>
           <Title level={2}>新用户注册</Title>
         </Space>

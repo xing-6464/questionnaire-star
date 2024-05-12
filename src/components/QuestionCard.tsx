@@ -78,7 +78,12 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
       title: '确认删除该问卷？',
       okText: '确认',
       cancelText: '取消',
-      icon: <ExclamationCircleOutlined />,
+      icon: (
+        <ExclamationCircleOutlined
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
+      ),
       onOk: delQuestion,
     })
   }
@@ -91,7 +96,13 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         <div className={styles.left}>
           <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
             <Space>
-              {isStarState && <StarOutlined style={{ color: 'red' }} />}
+              {isStarState && (
+                <StarOutlined
+                  style={{ color: 'red' }}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              )}
               {title}
             </Space>
           </Link>
@@ -109,7 +120,9 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         <div className={styles.left}>
           <Space>
             <Button
-              icon={<EditOutlined />}
+              icon={
+                <EditOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              }
               type="text"
               size="small"
               onClick={() => nav(`/question/edit/${_id}`)}
@@ -117,7 +130,12 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
               编辑问卷
             </Button>
             <Button
-              icon={<LineChartOutlined />}
+              icon={
+                <LineChartOutlined
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               type="text"
               size="small"
               onClick={() => nav(`/question/stat/${_id}`)}
@@ -131,7 +149,9 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
           <Space>
             <Button
               type="text"
-              icon={<StarOutlined />}
+              icon={
+                <StarOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              }
               size="small"
               onClick={changeStar}
               loading={changeStarLoading}
@@ -144,13 +164,28 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
               cancelText="取消"
               onConfirm={duplicate}
             >
-              <Button type="text" icon={<CopyOutlined />} size="small" loading={duplicateLoading}>
+              <Button
+                type="text"
+                icon={
+                  <CopyOutlined
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                }
+                size="small"
+                loading={duplicateLoading}
+              >
                 复制
               </Button>
             </Popconfirm>
             <Button
               type="text"
-              icon={<DeleteOutlined />}
+              icon={
+                <DeleteOutlined
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               size="small"
               onClick={del}
               loading={delLoading}

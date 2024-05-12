@@ -54,7 +54,12 @@ const Trash: FC = () => {
   function del() {
     confirm({
       title: '确定删除该问卷？',
-      icon: <ExclamationCircleOutlined />,
+      icon: (
+        <ExclamationCircleOutlined
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
+      ),
       content: '删除以后不可找回',
       okText: '确定',
       cancelText: '取消',

@@ -38,7 +38,9 @@ const ManageLayout: FC = () => {
           <Button
             type="primary"
             size="large"
-            icon={<PlusOutlined />}
+            icon={
+              <PlusOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
             onClick={handleCreateClick}
             loading={loading}
           >
@@ -48,7 +50,9 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith('/manage/list') ? 'default' : 'text'}
             size="large"
-            icon={<BarsOutlined />}
+            icon={
+              <BarsOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
             onClick={() => nav('/manage/list')}
           >
             我的问卷
@@ -56,7 +60,9 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith('/manage/star') ? 'default' : 'text'}
             size="large"
-            icon={<StarOutlined />}
+            icon={
+              <StarOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
             onClick={() => nav('/manage/star')}
           >
             星标问卷
@@ -64,7 +70,9 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith('/manage/trash') ? 'default' : 'text'}
             size="large"
-            icon={<DeleteOutlined />}
+            icon={
+              <DeleteOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
             onClick={() => nav('/manage/trash')}
           >
             回收站
