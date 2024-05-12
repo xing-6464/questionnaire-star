@@ -4,6 +4,9 @@ import userReducer from './userReducer'
 const store = configureStore({
   reducer: {
     user: userReducer,
+    // 组件列表
+
+    // 问卷信息
   },
 })
 
