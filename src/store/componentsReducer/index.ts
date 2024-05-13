@@ -9,7 +9,7 @@ export type ComponentInfoType = {
 }
 
 export type ComponentStateType = {
-  componentList: Array<ComponentInfoType>
+  componentList: ComponentInfoType[]
 }
 
 const INIT_STATE: ComponentStateType = {
@@ -17,7 +17,7 @@ const INIT_STATE: ComponentStateType = {
 }
 
 export const componentSlice = createSlice({
-  name: 'component',
+  name: 'components',
   initialState: INIT_STATE,
   reducers: {
     // 重置所有组件

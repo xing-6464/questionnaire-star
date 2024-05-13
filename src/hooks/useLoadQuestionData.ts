@@ -10,12 +10,17 @@ function useLoadQuestionData() {
   const dispatch = useAppDispatch()
 
   // ajax加载
-  const { run, loading, data, error } = useRequest(async (id: string) => {
-    if (!id) throw new Error('没有问卷')
-    const data = await getQuestionService(id)
+  const { run, loading, data, error } = useRequest(
+    async (id: string) => {
+      if (!id) throw new Error('没有问卷')
+      const data = await getQuestionService(id)
 
-    return data
-  })
+      return data
+    },
+    {
+      manual: true,
+    }
+  )
 
   // 根据获取的 data 设置，redux store
   useEffect(() => {
@@ -24,7 +29,8 @@ function useLoadQuestionData() {
     const { title = '', componentList = [] } = data
 
     // 把 componentList 存入 redux store
-    dispatch(resetComponents(componentList))
+
+    dispatch(resetComponents({ componentList }))
   }, [data])
 
   // 判断id变化， 执行 ajax 加载问卷数据

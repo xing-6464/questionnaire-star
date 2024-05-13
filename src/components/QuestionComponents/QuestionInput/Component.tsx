@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Input, Typography } from 'antd'
 import { type QuestionInputPropsType, questionInputDefaultProps } from './interface'
 
 const { Paragraph } = Typography
 
-function QuestionInput(props: QuestionInputPropsType) {
+const QuestionInput: FC<QuestionInputPropsType> = props => {
   const { title, placeholder } = { ...questionInputDefaultProps, ...props }
 
   return (
