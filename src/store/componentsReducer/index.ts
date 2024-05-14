@@ -30,9 +30,23 @@ export const componentSlice = createSlice({
     changeSelectedId: (state: ComponentStateType, action: PayloadAction<string>) => {
       state.selectedId = action.payload
     },
+    // 新增组件
+    addComponent: (state: ComponentStateType, action: PayloadAction<ComponentInfoType>) => {
+      const { selectedId, componentList } = state
+      const newComponent = action.payload
+
+      const index = componentList.findIndex(c => c.fe_id === selectedId)
+      if (index < 0) {
+        state.componentList.push(newComponent)
+      } else {
+        state.componentList.splice(index + 1, 0, newComponent)
+      }
+
+      state.selectedId = newComponent.fe_id
+    },
   },
 })
 
-export const { resetComponents, changeSelectedId } = componentSlice.actions
+export const { resetComponents, changeSelectedId, addComponent } = componentSlice.actions
 
 export default componentSlice.reducer
