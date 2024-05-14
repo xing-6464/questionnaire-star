@@ -3,15 +3,24 @@ import { Form, Input, Checkbox, Select } from 'antd'
 import { type QuestionTitlePropsType } from './interface'
 
 const PropComponent: React.FC<QuestionTitlePropsType> = props => {
-  const { text, level, isCenter } = props
+  const { text, level, isCenter, onChange } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
     form.setFieldsValue({ text, level, isCenter })
   }, [text, level, isCenter])
 
+  function handleValueChange() {
+    onChange?.(form.getFieldsValue())
+  }
+
   return (
-    <Form layout="vertical" initialValues={{ text, level, isCenter }}>
+    <Form
+      form={form}
+      layout="vertical"
+      onValuesChange={handleValueChange}
+      initialValues={{ text, level, isCenter }}
+    >
       <Form.Item
         label="标题内容"
         name="text"
@@ -26,7 +35,6 @@ const PropComponent: React.FC<QuestionTitlePropsType> = props => {
             { value: 1, text: 1 },
             { value: 2, text: 2 },
             { value: 3, text: 3 },
-            { value: 4, text: 4 },
           ]}
         ></Select>
       </Form.Item>
