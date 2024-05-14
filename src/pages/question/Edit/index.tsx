@@ -5,6 +5,7 @@ import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
 import { useAppDispatch } from '../../../store/hooks'
 import { changeSelectedId } from '../../../store/componentsReducer'
+import RightPanel from './RightPanel'
 
 const Edit: FC = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +28,9 @@ const Edit: FC = () => {
               <EditCanvas loading={loading} />
             </div>
           </div>
-          <div className={styles.right}>right</div>
+          <div className={styles.right}>
+            <RightPanel />
+          </div>
         </div>
       </div>
     </div>

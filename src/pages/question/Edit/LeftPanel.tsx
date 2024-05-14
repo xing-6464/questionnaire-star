@@ -9,10 +9,7 @@ const LeftPanel: React.FC = () => {
       key: 'componentsLib',
       label: (
         <span>
-          <AppstoreAddOutlined
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
+          <AppstoreAddOutlined onPointerEnterCapture={null} onPointerLeaveCapture={null} />
           组件库
         </span>
       ),
@@ -23,7 +20,7 @@ const LeftPanel: React.FC = () => {
       key: 'layers',
       label: (
         <span>
-          <BarsOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          <BarsOutlined onPointerEnterCapture={null} onPointerLeaveCapture={null} />
           图层
         </span>
       ),
