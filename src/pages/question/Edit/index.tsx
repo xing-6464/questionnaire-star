@@ -6,6 +6,7 @@ import LeftPanel from './LeftPanel'
 import { useAppDispatch } from '../../../store/hooks'
 import { changeSelectedId } from '../../../store/componentsReducer'
 import RightPanel from './RightPanel'
+import EditHeader from './EditHeader'
 
 const Edit: FC = () => {
   const dispatch = useAppDispatch()
@@ -17,7 +18,7 @@ const Edit: FC = () => {
 
   return (
     <div className={styles.container}>
-      <div style={{ backgroundColor: 'white', height: '40px' }}>Header</div>
+      <EditHeader />
       <div className={styles['content-wrapper']}>
         <div className={styles.content}>
           <div className={styles.left}>
