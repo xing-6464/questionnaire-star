@@ -1,13 +1,15 @@
 import React from 'react'
 import { Spin } from 'antd'
+import classNames from 'classnames'
 
 import styles from './EditCanvas.module.scss'
 // 静态展示
 import QuestionTitle from '../../../components/QuestionComponents/QuestionTitle/Component'
 import QuestionInput from '../../../components/QuestionComponents/QuestionInput/Component'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { ComponentInfoType } from '../../../store/componentsReducer'
+import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
+import { useAppDispatch } from '../../../store/hooks'
 
 type Props = {
   loading: boolean
@@ -25,7 +27,13 @@ function genComponent(componentInfo: ComponentInfoType) {
 
 function EditCanvas(props: Props) {
   const { loading } = props
-  const { componentList } = useGetComponentInfo()
+  const { componentList, selectedId } = useGetComponentInfo()
+  const dispatch = useAppDispatch()
+
+  function handleClick(event: React.MouseEvent, id: string) {
+    event.stopPropagation()
+    dispatch(changeSelectedId(id))
+  }
 
   if (loading) {
     return (
@@ -40,8 +48,14 @@ function EditCanvas(props: Props) {
       {componentList.map(c => {
         const { fe_id } = c
 
+        const wrapperDefaultClassName = styles['component-wrapper']
+        const selectedClassName = styles.selected
+        const wrapperClassName = classNames({
+          [wrapperDefaultClassName]: true,
+          [selectedClassName]: fe_id === selectedId,
+        })
         return (
-          <div className={styles['component-wrapper']} key={fe_id}>
+          <div className={wrapperClassName} key={fe_id} onClick={e => handleClick(e, fe_id)}>
             <div className={styles.component}>{genComponent(c)}</div>
           </div>
         )

@@ -28,9 +28,13 @@ function useLoadQuestionData() {
 
     const { title = '', componentList = [] } = data
 
-    // 把 componentList 存入 redux store
+    let selectedId = ''
+    if (componentList.length > 0) {
+      selectedId = componentList[0].fe_id
+    }
 
-    dispatch(resetComponents({ componentList }))
+    // 把 componentList 存入 redux store
+    dispatch(resetComponents({ componentList, selectedId }))
   }, [data])
 
   // 判断id变化， 执行 ajax 加载问卷数据
