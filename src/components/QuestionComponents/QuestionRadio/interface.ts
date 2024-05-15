@@ -8,6 +8,9 @@ export type QuestionRadioPropsType = {
   isVertical?: boolean
   options?: OptionType[]
   value?: string
+
+  onChange?: (newComponent: QuestionRadioPropsType) => void
+  disabled?: boolean
 }
 
 export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
