@@ -9,7 +9,7 @@ const RightPanel: React.FC = () => {
       key: 'prop',
       label: (
         <span>
-          <FileTextOutlined onPointerEnterCapture={null} onPointerLeaveCapture={null} />
+          <FileTextOutlined />
           属性
         </span>
       ),
@@ -19,7 +19,7 @@ const RightPanel: React.FC = () => {
       key: 'setting',
       label: (
         <span>
-          <SettingOutlined onPointerEnterCapture={null} onPointerLeaveCapture={null} />
+          <SettingOutlined />
           设置
         </span>
       ),

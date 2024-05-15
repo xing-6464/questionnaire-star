@@ -6,6 +6,7 @@ export type ComponentInfoType = {
   fe_id: string
   type: string
   title: string
+  isHidden?: boolean
   props: ComponentPropsType
 }
 
@@ -70,6 +71,23 @@ export const componentSlice = createSlice({
       const index = componentList.findIndex(c => c.fe_id === removedId)
       state.componentList.splice(index, 1)
     },
+    // 隐藏/显示 组件
+    changeComponentHidden: (
+      state: ComponentStateType,
+      action: PayloadAction<{ fe_id: string; isHidden: boolean }>
+    ) => {
+      const { componentList } = state
+      const { fe_id, isHidden } = action.payload
+
+      // 重新计算 selectedId
+      const newSelectedId = getNextSelectedId(fe_id, componentList)
+      state.selectedId = newSelectedId
+
+      const curComp = componentList.find(c => c.fe_id === fe_id)
+      if (curComp) {
+        curComp.isHidden = isHidden
+      }
+    },
   },
 })
 
@@ -79,6 +97,7 @@ export const {
   addComponent,
   changeComponentProps,
   removeSelectedComponent,
+  changeComponentHidden,
 } = componentSlice.actions
 
 export default componentSlice.reducer
