@@ -7,9 +7,16 @@ const { Paragraph } = Typography
 const Component: React.FC<QuestionParagraphPropsType> = props => {
   const { text = '', isCenter = false } = { ...questionParagraphDefaultProps, ...props }
 
+  const textList = text.split('\n')
+
   return (
     <Paragraph style={{ textAlign: isCenter ? 'center' : 'start', marginBottom: '0' }}>
-      {text}
+      {textList.map((t, index) => (
+        <span key={index}>
+          {index > 0 && <br />}
+          {t}
+        </span>
+      ))}
     </Paragraph>
   )
 }
