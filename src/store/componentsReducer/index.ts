@@ -104,14 +104,13 @@ export const componentSlice = createSlice({
     },
     // 粘贴组件
     pasteCopiedComponent: (state: ComponentsStateType) => {
-      const { copiedComponent } = state
-      if (copiedComponent == null) return
+      if (state.copiedComponent == null) return
 
       // 修改fe_id
-      copiedComponent.fe_id = nanoid()
+      state.copiedComponent.fe_id = nanoid()
 
       // 插入组件中
-      insertNewComponent(state, copiedComponent)
+      insertNewComponent(state, state.copiedComponent)
     },
   },
 })

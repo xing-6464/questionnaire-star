@@ -10,6 +10,7 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
 import { useAppDispatch } from '../../../store/hooks'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 
 type Props = {
   loading: boolean
@@ -29,6 +30,9 @@ function EditCanvas(props: Props) {
   const { loading } = props
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useAppDispatch()
+
+  // 绑定快捷键
+  useBindCanvasKeyPress()
 
   function handleClick(event: React.MouseEvent, id: string) {
     event.stopPropagation()
