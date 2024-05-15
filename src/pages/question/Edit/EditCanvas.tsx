@@ -48,13 +48,15 @@ function EditCanvas(props: Props) {
       {componentList
         .filter(c => !c.isHidden)
         .map(c => {
-          const { fe_id } = c
+          const { fe_id, isLocked } = c
 
           const wrapperDefaultClassName = styles['component-wrapper']
           const selectedClassName = styles.selected
+          const lockedClassName = styles.locked
           const wrapperClassName = classNames({
             [wrapperDefaultClassName]: true,
             [selectedClassName]: fe_id === selectedId,
+            [lockedClassName]: isLocked,
           })
           return (
             <div className={wrapperClassName} key={fe_id} onClick={e => handleClick(e, fe_id)}>

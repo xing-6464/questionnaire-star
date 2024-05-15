@@ -3,7 +3,7 @@ import { Form, Input, Checkbox, Select } from 'antd'
 import { type QuestionTitlePropsType } from './interface'
 
 const PropComponent: React.FC<QuestionTitlePropsType> = props => {
-  const { text, level, isCenter, onChange } = props
+  const { text, level, isCenter, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -20,6 +20,7 @@ const PropComponent: React.FC<QuestionTitlePropsType> = props => {
       layout="vertical"
       onValuesChange={handleValueChange}
       initialValues={{ text, level, isCenter }}
+      disabled={disabled}
     >
       <Form.Item
         label="标题内容"
