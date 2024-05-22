@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { QuestionRadioPropsType } from './interface'
+import { OptionType, QuestionRadioPropsType } from './interface'
 import { Button, Checkbox, Form, Input, Select, Space } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { nanoid } from '@reduxjs/toolkit'
 
 const PropComponent: React.FC<QuestionRadioPropsType> = props => {
   const { title, isVertical, value, options = [], onChange, disabled } = props
@@ -17,7 +18,13 @@ const PropComponent: React.FC<QuestionRadioPropsType> = props => {
   }, [title, isVertical, value, options])
 
   function handleValuesChange() {
-    onChange?.(form.getFieldsValue())
+    const newValues = form.getFieldsValue()
+    const { options = [] } = newValues
+    options.forEach((opt: OptionType) => {
+      if (opt.value) return
+      opt.value = nanoid(5)
+    })
+    onChange?.(newValues)
   }
 
   return (
@@ -40,7 +47,21 @@ const PropComponent: React.FC<QuestionRadioPropsType> = props => {
                   <Space key={key} align="baseline">
                     <Form.Item
                       name={[name, 'text']}
-                      rules={[{ required: true, message: '请输入选项内容' }]}
+                      rules={[
+                        { required: true, message: '请输入选项内容' },
+                        {
+                          validator: (_, text) => {
+                            const { options = [] } = form.getFieldsValue()
+
+                            let num = 0
+                            options.forEach((opt: OptionType) => {
+                              if (opt.text === text) num++ // 记录text相同的个数, 只有一个
+                            })
+                            if (num === 1) return Promise.resolve()
+                            return Promise.reject(new Error('选项内容不能相同'))
+                          },
+                        },
+                      ]}
                     >
                       <Input placeholder="请输入选项内容" />
                     </Form.Item>
