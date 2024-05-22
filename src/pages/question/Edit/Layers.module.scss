@@ -12,7 +12,7 @@
     color: #1890ff;
   }
 
-  .handle {
+  .handler {
     width: 50px;
     text-align: end;
 
@@ -22,8 +22,10 @@
   }
 
   &:hover {
-    .hadeler {
-      opacity: 1;
+    .handler {
+      .btn {
+        opacity: 1;
+      }
     }
   }
 }
