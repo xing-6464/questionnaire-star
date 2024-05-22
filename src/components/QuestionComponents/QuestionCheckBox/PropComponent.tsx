@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { OptionType, QuestionCheckBoxPropsType, questionCheckBoxDefaultProps } from './interface'
 import { Button, Checkbox, Form, Input, Space } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
@@ -13,6 +13,10 @@ const PropComponent: React.FC<QuestionCheckBoxPropsType> = props => {
     disabled,
   } = { ...questionCheckBoxDefaultProps, ...props }
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    form.setFieldsValue({ title, isVertical, list })
+  }, [title, isVertical, list])
 
   function handleValuesChange() {
     const newValues = form.getFieldsValue()
