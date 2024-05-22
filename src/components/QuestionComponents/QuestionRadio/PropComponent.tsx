@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { QuestionRadioPropsType } from './interface'
-import { Checkbox, Form, Input, Select } from 'antd'
+import { Button, Checkbox, Form, Input, Select, Space } from 'antd'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 const PropComponent: React.FC<QuestionRadioPropsType> = props => {
   const { title, isVertical, value, options = [], onChange, disabled } = props
@@ -29,6 +30,38 @@ const PropComponent: React.FC<QuestionRadioPropsType> = props => {
     >
       <Form.Item name="title" label="标题" rules={[{ required: true, message: '请输入标题' }]}>
         <Input />
+      </Form.Item>
+      <Form.Item name="options" label="选项">
+        <Form.List name="options">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name }, index) => {
+                return (
+                  <Space key={key} align="baseline">
+                    <Form.Item
+                      name={[name, 'text']}
+                      rules={[{ required: true, message: '请输入选项内容' }]}
+                    >
+                      <Input placeholder="请输入选项内容" />
+                    </Form.Item>
+                    {/* 删除按钮 */}
+                    {index > 1 && <MinusCircleOutlined onClick={() => remove(name)} />}
+                  </Space>
+                )
+              })}
+              <Form.Item>
+                <Button
+                  type="link"
+                  block
+                  onClick={() => add({ text: '', value: '' })}
+                  icon={<PlusOutlined />}
+                >
+                  添加选项
+                </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
       </Form.Item>
       <Form.Item name="value" label="默认选中">
         <Select
