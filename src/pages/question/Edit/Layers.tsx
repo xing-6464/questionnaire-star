@@ -3,9 +3,15 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 import styles from './Layers.module.scss'
 import classNames from 'classnames'
-import { Input, message } from 'antd'
+import { Button, Input, Space, message } from 'antd'
 import { useAppDispatch } from '../../../store/hooks'
-import { changeComponentTitle, changeSelectedId } from '../../../store/componentsReducer'
+import {
+  changeComponentHidden,
+  changeComponentTitle,
+  changeSelectedId,
+  toggleComponentLocked,
+} from '../../../store/componentsReducer'
+import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 
 function Layers() {
   const { componentList, selectedId } = useGetComponentInfo()
@@ -40,6 +46,16 @@ function Layers() {
     dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
   }
 
+  // 切换 隐藏/显示
+  function changeHidden(fe_id: string, isHidden: boolean) {
+    dispatch(changeComponentHidden({ fe_id, isHidden }))
+  }
+
+  // 切换 锁定/解锁
+  function changeLocked(fe_id: string) {
+    dispatch(toggleComponentLocked({ fe_id }))
+  }
+
   return (
     <>
       {componentList.map(component => {
@@ -66,7 +82,26 @@ function Layers() {
                 title
               )}
             </div>
-            <div className={styles.handler}>按钮</div>
+            <div className={styles.handler}>
+              <Space direction="horizontal">
+                <Button
+                  size="small"
+                  shape="circle"
+                  className={!isHidden ? styles.button : ''}
+                  icon={<EyeInvisibleOutlined />}
+                  type={isHidden ? 'primary' : 'text'}
+                  onClick={() => changeHidden(fe_id, !isHidden)}
+                />
+                <Button
+                  size="small"
+                  shape="circle"
+                  className={!isLocked ? styles.button : ''}
+                  icon={<LockOutlined />}
+                  type={isLocked ? 'primary' : 'text'}
+                  onClick={() => changeLocked(fe_id)}
+                />
+              </Space>
+            </div>
           </div>
         )
       })}
