@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { QuestionCheckBoxPropsType, questionCheckBoxDefaultProps } from './interface'
+import { QuestionCheckboxPropsType, questionCheckboxDefaultProps } from './interface'
 import { Checkbox, Space, Typography } from 'antd'
 
-const QuestionCheckBox: FC<QuestionCheckBoxPropsType> = props => {
-  const { title, isVertical, list = [] } = { ...questionCheckBoxDefaultProps, ...props }
+const QuestionCheckBox: FC<QuestionCheckboxPropsType> = props => {
+  const { title, isVertical, list = [] } = { ...questionCheckboxDefaultProps, ...props }
 
   return (
     <div>

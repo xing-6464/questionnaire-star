@@ -75,7 +75,12 @@ export const componentSlice = createSlice({
       const { fe_id, isHidden } = action.payload
 
       // 重新计算 selectedId
-      const newSelectedId = getNextSelectedId(fe_id, componentList)
+      let newSelectedId = ''
+      if (isHidden) {
+        newSelectedId = getNextSelectedId(fe_id, componentList)
+      } else {
+        newSelectedId = fe_id
+      }
       state.selectedId = newSelectedId
 
       const curComp = componentList.find(c => c.fe_id === fe_id)

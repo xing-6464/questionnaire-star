@@ -4,8 +4,6 @@ import classNames from 'classnames'
 
 import styles from './EditCanvas.module.scss'
 // 静态展示
-import QuestionTitle from '../../../components/QuestionComponents/QuestionTitle/Component'
-import QuestionInput from '../../../components/QuestionComponents/QuestionInput/Component'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
 import { getComponentConfByType } from '../../../components/QuestionComponents'

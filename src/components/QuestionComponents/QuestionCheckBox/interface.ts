@@ -4,16 +4,16 @@ export type OptionType = {
   checked: boolean
 }
 
-export interface QuestionCheckBoxPropsType {
+export interface QuestionCheckboxPropsType {
   title?: string
   isVertical?: boolean
   list?: OptionType[]
 
-  onChange?: (value: QuestionCheckBoxPropsType) => void
+  onChange?: (value: QuestionCheckboxPropsType) => void
   disabled?: boolean
 }
 
-export const questionCheckBoxDefaultProps: QuestionCheckBoxPropsType = {
+export const questionCheckboxDefaultProps: QuestionCheckboxPropsType = {
   title: '多选标题',
   isVertical: false,
   list: [

@@ -1,14 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userReducer'
 import componentsReducer from './componentsReducer'
+import pageInfoReducer from './pageInfoReducer'
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    // 组件列表
+
     components: componentsReducer,
 
-    // 问卷信息
+    pageInfo: pageInfoReducer,
   },
 })
 

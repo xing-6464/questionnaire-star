@@ -1,6 +1,6 @@
 import Component from './Component'
 import PropComponent from './PropComponent'
-import { questionCheckBoxDefaultProps } from './interface'
+import { questionCheckboxDefaultProps } from './interface'
 
 export * from './interface'
 
@@ -9,5 +9,5 @@ export default {
   type: 'questionCheckbox',
   Component,
   PropComponent,
-  defaultProps: questionCheckBoxDefaultProps,
+  defaultProps: questionCheckboxDefaultProps,
 }

@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import { OptionType, QuestionCheckBoxPropsType, questionCheckBoxDefaultProps } from './interface'
+import { OptionType, QuestionCheckboxPropsType, questionCheckboxDefaultProps } from './interface'
 import { Button, Checkbox, Form, Input, Space } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { nanoid } from '@reduxjs/toolkit'
 
-const PropComponent: React.FC<QuestionCheckBoxPropsType> = props => {
+const PropComponent: React.FC<QuestionCheckboxPropsType> = props => {
   const {
     title,
     isVertical,
     list = [],
     onChange,
     disabled,
-  } = { ...questionCheckBoxDefaultProps, ...props }
+  } = { ...questionCheckboxDefaultProps, ...props }
   const [form] = Form.useForm()
 
   useEffect(() => {

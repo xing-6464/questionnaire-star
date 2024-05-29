@@ -87,7 +87,7 @@ function Layers() {
                 <Button
                   size="small"
                   shape="circle"
-                  className={!isHidden ? styles.button : ''}
+                  className={!isHidden ? styles.btn : ''}
                   icon={<EyeInvisibleOutlined />}
                   type={isHidden ? 'primary' : 'text'}
                   onClick={() => changeHidden(fe_id, !isHidden)}
@@ -95,7 +95,7 @@ function Layers() {
                 <Button
                   size="small"
                   shape="circle"
-                  className={!isLocked ? styles.button : ''}
+                  className={!isLocked ? styles.btn : ''}
                   icon={<LockOutlined />}
                   type={isLocked ? 'primary' : 'text'}
                   onClick={() => changeLocked(fe_id)}
