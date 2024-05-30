@@ -4,6 +4,7 @@ import { Button, Result, Spin } from 'antd'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useNavigate } from 'react-router-dom'
 import { useTitle } from 'ahooks'
+import style from './index.module.scss'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -13,7 +14,7 @@ const Stat: FC = () => {
   // 修改标题
   useTitle('问卷统计')
 
-  if (loading) {
+  const Loading = () => {
     return (
       <div style={{ textAlign: 'center', marginTop: '60px' }}>
         <Spin />
@@ -21,26 +22,38 @@ const Stat: FC = () => {
     )
   }
 
-  if (!isPublished) {
+  const genElement = () => {
+    if (typeof isPublished === 'boolean' && !isPublished) {
+      return (
+        <div style={{ flex: 1 }}>
+          <Result
+            status="warning"
+            title="该页面未发布"
+            extra={
+              <Button type="primary" onClick={() => nav(-1)}>
+                返回
+              </Button>
+            }
+          ></Result>
+        </div>
+      )
+    }
+
     return (
-      <div style={{ flex: 1 }}>
-        <Result
-          status="warning"
-          title="该页面未发布"
-          extra={
-            <Button type="primary" onClick={() => nav(-1)}>
-              返回
-            </Button>
-          }
-        ></Result>
-      </div>
+      <>
+        <div className={style.left}>left</div>
+        <div className={style.main}>main</div>
+        <div className={style.right}>right</div>
+      </>
     )
   }
 
   return (
-    <div>
-      <p>stat page</p>
-      {loading ? <p>loading</p> : <p></p>}
+    <div className={style.container}>
+      <div>Heder</div>
+      <div className={style['content-wrapper']}>
+        {loading ? <Loading /> : <div className={style.content}>{genElement()}</div>}
+      </div>
     </div>
   )
 }
