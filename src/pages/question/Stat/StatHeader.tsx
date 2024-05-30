@@ -1,14 +1,52 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './StatHeader.module.scss'
-import { Button, Space, Typography } from 'antd'
-import { LeftOutlined } from '@ant-design/icons'
+import { Button, Input, InputRef, Popover, QRCode, Space, Tooltip, Typography, message } from 'antd'
+import { CopyOutlined, LeftOutlined, QrcodeOutlined } from '@ant-design/icons'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 
 const { Title } = Typography
 
 function StatHeader() {
   const nav = useNavigate()
   const { id } = useParams()
+
+  const { title, isPublished } = useGetPageInfo()
+
+  // 拷贝链接
+  const urlInputRef = React.useRef<InputRef>(null)
+  function copy() {
+    const elem = urlInputRef.current
+    if (elem == null) return
+    elem.select()
+    document.execCommand('copy') // 执行浏览器复制命令
+    message.success('拷贝成功')
+  }
+
+  function genLinkAndQRCodeElem() {
+    if (!isPublished) return null
+
+    // TODO: generate QR code and link
+    const url = `http://localhost:3000/question/${id}`
+
+    const QRCodeElem = (
+      <div style={{ textAlign: 'center' }}>
+        <QRCode value={url} size={150} />
+      </div>
+    )
+
+    return (
+      <Space>
+        <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
+        <Tooltip title="拷贝链接">
+          <Button icon={<CopyOutlined />} onClick={copy} />
+        </Tooltip>
+        <Popover content={QRCodeElem}>
+          <Button icon={<QrcodeOutlined />} />
+        </Popover>
+      </Space>
+    )
+  }
 
   return (
     <div className={styles['header-wrapper']}>
@@ -18,10 +56,10 @@ function StatHeader() {
             <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
               返回
             </Button>
-            <Title>统计</Title>
+            <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>中</div>
+        <div className={styles.main}>{genLinkAndQRCodeElem()}</div>
         <div className={styles.right}>
           <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
             编辑问卷
