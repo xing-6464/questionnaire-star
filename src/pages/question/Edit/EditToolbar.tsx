@@ -3,14 +3,17 @@ import {
   BlockOutlined,
   CopyOutlined,
   DeleteOutlined,
+  DownOutlined,
   EyeInvisibleOutlined,
   LockOutlined,
+  UpOutlined,
 } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useAppDispatch } from '../../../store/hooks'
 import {
   changeComponentHidden,
   copySelectedComponent,
+  moveComponent,
   pasteCopiedComponent,
   removeSelectedComponent,
   toggleComponentLocked,
@@ -19,8 +22,17 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 const EditToolbar: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { selectedId: fe_id, selectedComponent, copiedComponent } = useGetComponentInfo()
+  const {
+    selectedId: fe_id,
+    componentList,
+    selectedComponent,
+    copiedComponent,
+  } = useGetComponentInfo()
   const { isLocked } = selectedComponent || {}
+  const length = componentList.length
+  const selectedIndex = componentList.findIndex(item => item.fe_id === fe_id)
+  const isFirst = selectedIndex <= 0 // 是否是第一个
+  const isLast = selectedIndex >= length - 1 // 是否是最后一个
 
   // 删除
   function handleDelete() {
@@ -48,7 +60,19 @@ const EditToolbar: React.FC = () => {
     dispatch(pasteCopiedComponent())
   }
 
-  // TODO 上移/下移, 撤销/重做
+  // 上移
+  function moveUp() {
+    if (isFirst) return
+    dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }))
+  }
+
+  // 下移
+  function moveDown() {
+    if (isLast) return
+    dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
+  }
+
+  // TODO 撤销/重做
 
   return (
     <Space>
@@ -76,6 +100,12 @@ const EditToolbar: React.FC = () => {
           onClick={paste}
           disabled={copiedComponent == null}
         ></Button>
+      </Tooltip>
+      <Tooltip title="上移">
+        <Button shape="circle" icon={<UpOutlined />} onClick={moveUp} disabled={isFirst} />
+      </Tooltip>
+      <Tooltip title="下移">
+        <Button shape="circle" icon={<DownOutlined />} onClick={moveDown} disabled={isLast} />
       </Tooltip>
     </Space>
   )

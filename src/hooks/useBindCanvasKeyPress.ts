@@ -11,7 +11,11 @@ import {
 function isActiveElementValid() {
   const activeElem = document.activeElement
 
-  if (activeElem === document.body) return true // 光标没有 focus 到input元素
+  // 没有dnd
+  // if (activeElem === document.body) return true // 光标没有 focus 到input元素
+  // 有dnd
+  if (activeElem === document.body) return true
+  if (activeElem?.matches('div[role="button"]')) return true
 
   return false
 }
