@@ -7,10 +7,14 @@ import { useAppDispatch } from '../../../store/hooks'
 import { changeSelectedId } from '../../../store/componentsReducer'
 import RightPanel from './RightPanel'
 import EditHeader from './EditHeader'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import { useTitle } from 'ahooks'
 
 const Edit: FC = () => {
   const dispatch = useAppDispatch()
   const { loading } = useLoadQuestionData()
+  const { title } = useGetPageInfo()
+  useTitle(`问卷编辑 - ${title}`)
 
   function clearSelectedId() {
     dispatch(changeSelectedId(''))

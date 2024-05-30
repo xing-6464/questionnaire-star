@@ -27,7 +27,14 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return
 
-    const { title = '', desc = '', js = '', css = '', componentList = [] } = data
+    const {
+      title = '',
+      desc = '',
+      js = '',
+      css = '',
+      isPublished = false,
+      componentList = [],
+    } = data
 
     let selectedId = ''
     if (componentList.length > 0) {
@@ -38,7 +45,7 @@ function useLoadQuestionData() {
     dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 
     // 把 pageInfo 存入redux store
-    dispatch(resetPageInfo({ title, desc, js, css }))
+    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
   }, [data])
 
   // 判断id变化， 执行 ajax 加载问卷数据
