@@ -5,6 +5,7 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useNavigate } from 'react-router-dom'
 import { useTitle } from 'ahooks'
 import style from './index.module.scss'
+import StatHeader from './StatHeader'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -50,7 +51,7 @@ const Stat: FC = () => {
 
   return (
     <div className={style.container}>
-      <div>Heder</div>
+      <StatHeader />
       <div className={style['content-wrapper']}>
         {loading ? <Loading /> : <div className={style.content}>{genElement()}</div>}
       </div>
