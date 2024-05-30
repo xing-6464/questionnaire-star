@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import undoable, { excludeAction } from 'redux-undo'
 import userReducer from './userReducer'
 import componentsReducer from './componentsReducer'
 import pageInfoReducer from './pageInfoReducer'
@@ -7,7 +8,16 @@ const store = configureStore({
   reducer: {
     user: userReducer,
 
-    components: componentsReducer,
+    // 使用 redux-undo 实现组件的撤销和重做
+    components: undoable(componentsReducer, {
+      limit: 20,
+      filter: excludeAction([
+        'components/resetComponents',
+        'components/changeSelectedId',
+        'components/selectPrevComponent',
+        'components/selectNextComponent',
+      ]),
+    }),
 
     pageInfo: pageInfoReducer,
   },
