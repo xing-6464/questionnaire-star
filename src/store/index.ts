@@ -11,6 +11,7 @@ const store = configureStore({
     // 使用 redux-undo 实现组件的撤销和重做
     components: undoable(componentsReducer, {
       limit: 20,
+      syncFilter: true,
       filter: excludeAction([
         'components/resetComponents',
         'components/changeSelectedId',
