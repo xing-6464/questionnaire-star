@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Typography, Space, Input, message } from 'antd'
 import styles from './EditHeader.module.scss'
-import { EditOutlined, LeftOutlined, LoadingOutlined, SaveOutlined } from '@ant-design/icons'
+import { EditOutlined, LeftOutlined, SaveOutlined } from '@ant-design/icons'
 import EditToolbar from './EditToolbar'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useAppDispatch } from '../../../store/hooks'
@@ -57,9 +57,6 @@ const SaveButton = () => {
     },
     {
       manual: true,
-      onSuccess: () => {
-        message.success('保存成功')
-      },
     }
   )
 
