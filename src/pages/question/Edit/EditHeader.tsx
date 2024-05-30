@@ -84,6 +84,37 @@ const SaveButton = () => {
   )
 }
 
+// 发布按钮
+const PublishButton = () => {
+  const nav = useNavigate()
+  const { id } = useParams()
+  const { componentList } = useGetComponentInfo()
+  const pageInfo = useGetPageInfo()
+
+  const { loading, run: pub } = useRequest(
+    async () => {
+      if (!id) return
+      await updateQuestionService(id, {
+        ...pageInfo,
+        componentList,
+        isPublished: true, // 发布状态
+      })
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('发布成功')
+        nav(`/question/stat/${id}`) // 跳转到统计页面
+      },
+    }
+  )
+  return (
+    <Button type="primary" onClick={pub} loading={loading}>
+      发布
+    </Button>
+  )
+}
+
 // 编辑页面的头部
 const EditHeader = () => {
   const nav = useNavigate()
@@ -104,7 +135,7 @@ const EditHeader = () => {
         <div className={styles.right}>
           <Space>
             <SaveButton />
-            <Button type="primary">发布</Button>
+            <PublishButton />
           </Space>
         </div>
       </div>
