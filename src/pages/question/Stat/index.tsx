@@ -7,6 +7,7 @@ import { useTitle } from 'ahooks'
 import style from './index.module.scss'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
+import PageStat from './PageStat'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -54,7 +55,13 @@ const Stat: FC = () => {
             setSelectedComponentType={setSelectedComponentType}
           />
         </div>
-        <div className={style.main}>main</div>
+        <div className={style.main}>
+          <PageStat
+            selectedComponentId={selectedComponentId}
+            setSelectedComponentId={setSelectedComponentId}
+            setSelectedComponentType={setSelectedComponentType}
+          />
+        </div>
         <div className={style.right}>right</div>
       </>
     )

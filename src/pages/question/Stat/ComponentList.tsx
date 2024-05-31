@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 import styles from './ComponentList.module.scss'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
 import classNames from 'classnames'
-
-type PropsType = {
-  selectedComponentId: string
-  setSelectedComponentId: (id: string) => void
-  setSelectedComponentType: (type: string) => void
-}
+import type { PropsType } from './types'
 
 function ComponentList(props: PropsType) {
   const { selectedComponentId, setSelectedComponentId, setSelectedComponentType } = props
