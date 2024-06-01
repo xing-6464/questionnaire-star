@@ -3,6 +3,8 @@ import { Typography } from 'antd'
 import React, { useEffect } from 'react'
 import { getComponentStatService } from '../../../services/stat'
 import { useParams } from 'react-router-dom'
+import { getComponentConfByType } from '../../../components/QuestionComponents'
+import { ResType } from '../../../services/ajax'
 
 const { Title } = Typography
 
@@ -30,9 +32,13 @@ function ChartStat(props: PropsType) {
     if (selectedComponentId) run(id, selectedComponentId)
   }, [id, selectedComponentId])
 
+  // 生成统计图表
   function genStatElem() {
-    if (!selectedComponentId) return <div>选中组件</div>
-    return <div>{JSON.stringify(stat)}</div>
+    if (!selectedComponentId) return <div>未中组件</div>
+    //  判断组件类型
+    const { StatComponent } = getComponentConfByType(selectedComponentType) || {}
+    if (!StatComponent) return <div>该组件无统计图表</div>
+    return <StatComponent stat={stat} />
   }
 
   return (

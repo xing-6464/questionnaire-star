@@ -1,6 +1,7 @@
 import React from 'react'
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { QuestionRadioStatPropsType } from './interface'
+import { STAT_COLORS } from '../../../constant'
 
 function format(n: number) {
   return (n * 100).toFixed(2)
@@ -25,8 +26,12 @@ function StatComponent({ stat }: QuestionRadioStatPropsType) {
             cy="50%"
             outerRadius={50}
             fill="#8884d8"
-            label={i => `${i.name}: ${format(i.count / sum)}`}
-          />
+            label={i => `${i.name}: ${format(i.count / sum)}%`}
+          >
+            {stat.map((i, index) => {
+              return <Cell key={index} fill={STAT_COLORS[index]} />
+            })}
+          </Pie>
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>

@@ -8,7 +8,10 @@ import QuestionRadioConf, {
   type QuestionRadioPropsType,
   type QuestionRadioStatPropsType,
 } from './QuestionRadio'
-import QuestionCheckboxConf, { type QuestionCheckboxPropsType } from './QuestionCheckbox'
+import QuestionCheckboxConf, {
+  type QuestionCheckboxPropsType,
+  type QuestionCheckboxStatType,
+} from './QuestionCheckbox'
 
 // 各个组件的类型
 export type ComponentPropsType = QuestionInputPropsType &
@@ -20,7 +23,7 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionCheckboxPropsType
 
 // 各个组件的统计实现类型
-type ComponentStatPropsType = QuestionRadioStatPropsType
+type ComponentStatPropsType = QuestionRadioStatPropsType & QuestionCheckboxStatType
 
 // 组件的配置类型
 export type ComponentConfType = {
