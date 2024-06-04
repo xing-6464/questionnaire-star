@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Typography } from 'antd'
 import { componentConfGroup, type ComponentConfType } from '../../../components/QuestionComponents'
 import styles from './ComponentLib.module.scss'
@@ -12,7 +12,7 @@ function genComponent(c: ComponentConfType) {
   const { title, type, Component, defaultProps } = c
   const dispatch = useAppDispatch()
 
-  function handleClick() {
+  const handleClick = useCallback(() => {
     dispatch(
       addComponent({
         fe_id: nanoid(),
@@ -21,7 +21,7 @@ function genComponent(c: ComponentConfType) {
         props: defaultProps,
       })
     )
-  }
+  }, [])
 
   return (
     <div className={styles.wrapper} key={type} onClick={handleClick}>
