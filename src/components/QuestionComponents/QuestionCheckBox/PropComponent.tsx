@@ -70,7 +70,13 @@ const PropComponent: React.FC<QuestionCheckboxPropsType> = props => {
                       <Input placeholder="请输入选项内容" />
                     </Form.Item>
                     {/* 删除按钮 */}
-                    {index > 0 && <MinusCircleOutlined onClick={() => remove(name)} />}
+                    {index > 0 && (
+                      <MinusCircleOutlined
+                        onClick={() => remove(name)}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      />
+                    )}
                   </Space>
                 )
               })}
@@ -79,7 +85,12 @@ const PropComponent: React.FC<QuestionCheckboxPropsType> = props => {
                   type="link"
                   block
                   onClick={() => add({ text: '', value: '', checked: false })}
-                  icon={<PlusOutlined />}
+                  icon={
+                    <PlusOutlined
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  }
                 >
                   添加选项
                 </Button>

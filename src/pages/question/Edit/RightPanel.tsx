@@ -24,7 +24,7 @@ const RightPanel: React.FC = () => {
       key: TAB_KEYS.PROP_KEY,
       label: (
         <span>
-          <FileTextOutlined />
+          <FileTextOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           属性
         </span>
       ),
@@ -34,7 +34,7 @@ const RightPanel: React.FC = () => {
       key: TAB_KEYS.SETTING_KEY,
       label: (
         <span>
-          <SettingOutlined />
+          <SettingOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           设置
         </span>
       ),

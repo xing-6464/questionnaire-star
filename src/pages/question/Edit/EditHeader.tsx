@@ -39,7 +39,11 @@ const TitleElem = () => {
   return (
     <Space>
       <Title>{title}</Title>
-      <Button icon={<EditOutlined />} type="text" onClick={() => setEditState(true)} />
+      <Button
+        icon={<EditOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+        type="text"
+        onClick={() => setEditState(true)}
+      />
     </Space>
   )
 }
@@ -75,7 +79,15 @@ const SaveButton = () => {
   })
 
   return (
-    <Button onClick={save} loading={loading} icon={!loading ? <SaveOutlined /> : null}>
+    <Button
+      onClick={save}
+      loading={loading}
+      icon={
+        !loading ? (
+          <SaveOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+        ) : null
+      }
+    >
       保存
     </Button>
   )
@@ -120,7 +132,13 @@ const EditHeader = () => {
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
+            <Button
+              type="link"
+              icon={
+                <LeftOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              }
+              onClick={() => nav(-1)}
+            >
               返回
             </Button>
             <TitleElem />

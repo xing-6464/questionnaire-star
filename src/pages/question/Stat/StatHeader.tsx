@@ -65,10 +65,19 @@ function StatHeader() {
       <Space>
         <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
         <Tooltip title="拷贝链接">
-          <Button icon={<CopyOutlined />} onClick={copy} />
+          <Button
+            icon={
+              <CopyOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
+            onClick={copy}
+          />
         </Tooltip>
         <Popover content={QRCodeElem}>
-          <Button icon={<QrcodeOutlined />} />
+          <Button
+            icon={
+              <QrcodeOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            }
+          />
         </Popover>
       </Space>
     )
@@ -79,7 +88,13 @@ function StatHeader() {
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
+            <Button
+              type="link"
+              icon={
+                <LeftOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              }
+              onClick={() => nav(-1)}
+            >
               返回
             </Button>
             <Title>{title}</Title>

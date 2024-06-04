@@ -11,8 +11,12 @@ import NotFound from '../pages/NotFound'
 import List from '../pages/manage/List'
 import Trash from '../pages/manage/Trash'
 import Star from '../pages/manage/Star'
-import Edit from '../pages/question/Edit'
-import Stat from '../pages/question/Stat'
+// import Edit from '../pages/question/Edit'
+// import Stat from '../pages/question/Stat'
+
+// 路由懒加载，拆分 bundle, 优化首页体积
+const Edit = React.lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
+const Stat = React.lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
 
 const router = createBrowserRouter([
   {

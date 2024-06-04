@@ -100,7 +100,12 @@ function Layers() {
                     size="small"
                     shape="circle"
                     className={!isHidden ? styles.btn : ''}
-                    icon={<EyeInvisibleOutlined />}
+                    icon={
+                      <EyeInvisibleOutlined
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      />
+                    }
                     type={isHidden ? 'primary' : 'text'}
                     onClick={() => changeHidden(fe_id, !isHidden)}
                   />
@@ -108,7 +113,12 @@ function Layers() {
                     size="small"
                     shape="circle"
                     className={!isLocked ? styles.btn : ''}
-                    icon={<LockOutlined />}
+                    icon={
+                      <LockOutlined
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      />
+                    }
                     type={isLocked ? 'primary' : 'text'}
                     onClick={() => changeLocked(fe_id)}
                   />

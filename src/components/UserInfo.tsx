@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LOGIN_PATHNAME } from '../router'
-import { useRequest } from 'ahooks'
-import { getUserInfoService } from '../services/user'
 import { UserOutlined } from '@ant-design/icons'
 import { Button, message } from 'antd'
 import { removeToken } from '../utils/user-token'

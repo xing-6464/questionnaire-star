@@ -88,41 +88,90 @@ const EditToolbar: React.FC = () => {
   return (
     <Space>
       <Tooltip title="删除">
-        <Button shape="circle" icon={<DeleteOutlined />} onClick={handleDelete}></Button>
+        <Button
+          shape="circle"
+          icon={
+            <DeleteOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
+          onClick={handleDelete}
+        ></Button>
       </Tooltip>
       <Tooltip title="隐藏">
-        <Button shape="circle" icon={<EyeInvisibleOutlined />} onClick={handleHidden}></Button>
+        <Button
+          shape="circle"
+          icon={
+            <EyeInvisibleOutlined
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+          }
+          onClick={handleHidden}
+        ></Button>
       </Tooltip>
       <Tooltip title="锁定">
         <Button
           shape="circle"
-          icon={<LockOutlined />}
+          icon={
+            <LockOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
           onClick={handleLock}
           type={isLocked ? 'primary' : 'default'}
         ></Button>
       </Tooltip>{' '}
       <Tooltip title="复制">
-        <Button shape="circle" icon={<CopyOutlined />} onClick={copy}></Button>
+        <Button
+          shape="circle"
+          icon={
+            <CopyOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
+          onClick={copy}
+        ></Button>
       </Tooltip>
       <Tooltip title="粘贴">
         <Button
           shape="circle"
-          icon={<BlockOutlined />}
+          icon={
+            <BlockOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
           onClick={paste}
           disabled={copiedComponent == null}
         ></Button>
       </Tooltip>
       <Tooltip title="上移">
-        <Button shape="circle" icon={<UpOutlined />} onClick={moveUp} disabled={isFirst} />
+        <Button
+          shape="circle"
+          icon={<UpOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+          onClick={moveUp}
+          disabled={isFirst}
+        />
       </Tooltip>
       <Tooltip title="下移">
-        <Button shape="circle" icon={<DownOutlined />} onClick={moveDown} disabled={isLast} />
+        <Button
+          shape="circle"
+          icon={
+            <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
+          onClick={moveDown}
+          disabled={isLast}
+        />
       </Tooltip>
       <Tooltip title="撤销">
-        <Button shape="circle" icon={<UndoOutlined />} onClick={undo} />
+        <Button
+          shape="circle"
+          icon={
+            <UndoOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
+          onClick={undo}
+        />
       </Tooltip>
       <Tooltip title="重做">
-        <Button shape="circle" icon={<RedoOutlined />} onClick={redo} />
+        <Button
+          shape="circle"
+          icon={
+            <RedoOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          }
+          onClick={redo}
+        />
       </Tooltip>
     </Space>
   )
