@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './StatHeader.module.scss'
 import { Button, Input, InputRef, Popover, QRCode, Space, Tooltip, Typography, message } from 'antd'
@@ -23,10 +23,36 @@ function StatHeader() {
     message.success('拷贝成功')
   }
 
-  function genLinkAndQRCodeElem() {
+  // function genLinkAndQRCodeElem() {
+  //   if (!isPublished) return null
+
+  //   // generate QR code and link
+  //   const url = `http://localhost:3000/question/${id}`
+
+  //   const QRCodeElem = (
+  //     <div style={{ textAlign: 'center' }}>
+  //       <QRCode value={url} size={150} />
+  //     </div>
+  //   )
+
+  //   return (
+  //     <Space>
+  //       <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
+  //       <Tooltip title="拷贝链接">
+  //         <Button icon={<CopyOutlined />} onClick={copy} />
+  //       </Tooltip>
+  //       <Popover content={QRCodeElem}>
+  //         <Button icon={<QrcodeOutlined />} />
+  //       </Popover>
+  //     </Space>
+  //   )
+  // }
+
+  // 使用 useMemo 优化性能
+  const LinkAndQRCodeElem = useMemo(() => {
     if (!isPublished) return null
 
-    // TODO: generate QR code and link
+    // generate QR code and link
     const url = `http://localhost:3000/question/${id}`
 
     const QRCodeElem = (
@@ -46,7 +72,7 @@ function StatHeader() {
         </Popover>
       </Space>
     )
-  }
+  }, [id, isPublished])
 
   return (
     <div className={styles['header-wrapper']}>
@@ -59,7 +85,7 @@ function StatHeader() {
             <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>{genLinkAndQRCodeElem()}</div>
+        <div className={styles.main}>{LinkAndQRCodeElem}</div>
         <div className={styles.right}>
           <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
             编辑问卷
