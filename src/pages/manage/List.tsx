@@ -43,7 +43,8 @@ const List: FC = () => {
     {
       manual: true,
       onSuccess(res) {
-        const { list: l = [], total = 0 } = res
+        console.log(res)
+        const { list: l = [], count: total = 0 } = res
         setList(list.concat(l))
         setTotal(total)
         setPage(page + 1)
@@ -89,7 +90,7 @@ const List: FC = () => {
     if (total === 0) return <Empty description="暂无数据" />
     if (!haveMoreData) return <span>没有更多数据</span>
     return <span>开始加载下一页</span>
-  }, [started, loading, total, haveMoreData])
+  }, [started, loading, haveMoreData])
 
   return (
     <>

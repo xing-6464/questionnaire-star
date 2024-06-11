@@ -3,7 +3,9 @@ import axios from 'axios'
 import { getToken } from '../utils/user-token'
 
 const instance = axios.create({
+  baseURL: 'http://localhost:3005/',
   timeout: 10 * 1000,
+  headers: {},
 })
 
 // request拦截：每次请求前，检查是否有token，如果有，则添加到header中

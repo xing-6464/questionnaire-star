@@ -47,9 +47,8 @@ const Login: FC = () => {
         // 存储 token
         setToken(token)
         message.success('登录成功')
-
         // 登录成功导航到我的问卷
-        nav(MANAGE_INDEX_PATHNAME)
+        nav('/')
       },
     }
   )
@@ -60,7 +59,7 @@ const Login: FC = () => {
   }, [])
 
   function onFinish(values: any) {
-    const { username, password, remember } = values
+    const { username, password, remember } = values || {}
 
     run(username, password)
     if (remember) {
@@ -88,10 +87,22 @@ const Login: FC = () => {
           onFinish={onFinish}
           form={form}
         >
-          <Form.Item label="用户名" name="username">
+          <Form.Item
+            label="用户名"
+            name="username"
+            rules={[
+              { required: true, message: '请输入用户名' },
+              { type: 'string', min: 5, max: 20, message: '字符长度在 5-20 之间' },
+              { pattern: /^\w+$/, message: '只能是字母数字下划线' },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="密码" name="password">
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[{ required: true, message: '请输入密码' }]}
+          >
             <Input.Password />
           </Form.Item>
           <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 6, span: 16 }}>
