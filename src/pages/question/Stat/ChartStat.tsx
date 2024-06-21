@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { getComponentStatService } from '../../../services/stat'
 import { useParams } from 'react-router-dom'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
-import { ResType } from '../../../services/ajax'
 
 const { Title } = Typography
 

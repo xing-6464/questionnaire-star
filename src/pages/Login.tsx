@@ -50,6 +50,9 @@ const Login: FC = () => {
         // 登录成功导航到我的问卷
         nav('/')
       },
+      onError(error) {
+        message.error('登录失败，请检查用户名和密码')
+      },
     }
   )
 

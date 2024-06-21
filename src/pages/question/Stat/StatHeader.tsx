@@ -53,7 +53,7 @@ function StatHeader() {
     if (!isPublished) return null
 
     // generate QR code and link
-    const url = `http://1.94.45.254:8001/question/${id}`
+    const url = `http://question.ixing.xyz/question/${id}`
 
     const QRCodeElem = (
       <div style={{ textAlign: 'center' }}>
